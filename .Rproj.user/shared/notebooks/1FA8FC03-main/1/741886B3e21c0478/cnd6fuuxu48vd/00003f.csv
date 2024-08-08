@@ -1,0 +1,33 @@
+"0",""
+"0","#Place 2 MSA"
+"0","hwy2 <- read_csv(file.path(folder, ""nhgis0034_csv/nhgis0034_ds94_1970_place.csv""))"
+"2","[1mRows: [22m[34m20950[39m [1mColumns: [22m[34m22[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (6): GISJOIN, STATE, STATEA, PLACE, PLACEA, AREANAME
+[32mdbl[39m  (2): YEAR, CBC001
+[33mlgl[39m (14): COUNTYA, CTY_SUBA, TRACTA, ENUMDISTA, CMSA, SMSAA, URB_AREAA, BLCK_GRPA, ANXTERRA, URBRURALA, CDA, CENCNTY, CBD, SEA"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","hwy2 <- select(hwy2, GISJOIN, CBC001)"
+"0","hwy2 <- rename(hwy2, population = CBC001)"
+"0","places2 <- read_csv(file.path(folder, ""places2msa1970.csv""))"
+"2","[1mRows: [22m[34m6584[39m [1mColumns: [22m[34m37[39m"
+"2","[36m──[39m [1mColumn specification[22m [36m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (24): STATE, NHGISST, PLACE, NAME, NHGISPLACE, GISJOIN, NHGISNAM, NHGISST_2, NHGISCTY, ICPSRNAM, STATENAM, STATE_2, COUNTY, GISJOIN_2, GISJOIN2, statefi...
+[32mdbl[39m (12): YEAR, DECADE, ICPSRST, ICPSRCTY, ICPSRSTI, ICPSRCTYI, ICPSRFIP, PID, X_CENTROID, Y_CENTROID, SHAPE_AREA, SHAPE_LEN
+[33mlgl[39m  (1): entityfips"
+"2","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message."
+"0","hwyplaces2 <- full_join(hwy2, places2, by = ""GISJOIN"")"
+"0","# hwyplaces2 <- rename(hwyplaces2, population = CBC001)"
+"0","# str(hwyplaces2)"
+"0","hwyplaces2 <- hwyplaces2 %>% group_by(smsacode) %>%"
+"0","  mutate(max_place_pop = max((population), na.rm = TRUE),"
+"0","         max_place = (population) == max_place_pop) %>%"
+"0","  ungroup()"
+"0","hwyplaces2 %>% select(NHGISPLACE, smsacode, max_place, population) %>%"
+"0","  rename(msa = smsacode)"

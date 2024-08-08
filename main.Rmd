@@ -1,0 +1,82 @@
+---
+title: "main"
+author: "nwfried"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Initialise libraries
+```{r}
+library(tidyverse)
+library(ivreg)
+```
+
+Translating do-file stuff using https://www.matthieugomez.com/statar/manipulate-data.html and google/chatgpt
+```{r}
+#Read in first dataset, withdrawn
+folder <- "data"
+data1 <- read_csv(file.path(folder, "hwys2msa.csv")) %>%
+  filter(withdrawal == 1) %>%
+  select(msa = smsacode, length = length_msa_km, withdrawal)
+
+#Read in second dataset, completed
+data2 <- read_csv(file.path(folder, "pr5112msa.csv")) %>%
+  filter(!is.na(smsacode),OPEN90!= 0) %>%
+  select(msa = smsacode, length = length_in_km, starts_with("OPEN")) %>%
+  mutate(withdrawal = 0)
+
+#append
+combined <- bind_rows(data1, data2)
+
+#sort
+sorted <- arrange(combined, msa, withdrawal)
+
+sorted <- sorted %>%
+  group_by(msa) %>%
+  mutate(has_withdraw = max(withdrawal)) %>%
+  ungroup()
+
+collapsed_data <- sorted %>%
+  group_by(msa, withdrawal) %>%
+  summarize(length = sum(length, na.rm = TRUE), .groups = 'drop')
+
+# Calculate total length for each msa
+collapsed_data <- collapsed_data %>%
+  group_by(msa) %>%
+  mutate(total_length = sum(length, na.rm = TRUE)) %>%
+  ungroup()
+
+# Generate frac_length and handle precision issues
+collapsed_data <- collapsed_data %>%
+  mutate(frac_length = length / total_length,
+         frac_length = ifelse(frac_length > 0.9999, 1, frac_length))
+
+# Sort by msa and descending withdrawal
+sorted_data <- collapsed_data %>%
+  arrange(msa, desc(withdrawal))
+
+# Tagging the first occurrence of each msa
+tagged_data <- sorted_data %>%
+  group_by(msa) %>%
+  filter(row_number() == 1) %>%
+  ungroup()
+
+# Replace frac_length with 0 where withdrawal is 0
+tagged_data <- tagged_data %>%
+  mutate(frac_length = ifelse(withdrawal == 0, 0, frac_length))
+
+# Drop columns withdrawal, tag, and length
+msahwy <- tagged_data %>%
+  select(-withdrawal, -length) %>%
+  rename(frac_length_withdrawn = frac_length)
+
+# Save the final dataframe to a CSV file
+write_csv(msahwy, file.path(folder, "msahwy.csv"))
+
+# Display the final dataframe
+print(msahwy)
+```
