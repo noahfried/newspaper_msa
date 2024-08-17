@@ -1,0 +1,272 @@
+File Manifest for ICPSR 30261
+
+Gentzkow, Matthew, Jesse M. Shapiro, and Michael Sinkinson. United States
+Newspaper Panel, 1869-2004. ICPSR30261-v6. Ann Arbor, MI: Inter-university
+Consortium for Political and Social Research [distributor], 2014-12-10.
+http://doi.org/10.3886/ICPSR30261.v6
+
+Details on the version history can be found below the file listings.
+
+
+Study-level Documentation
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-descriptioncitation.pdf       -       -         -       2014-12-10  -
+
+    30261-related_literature.txt        -       -         -       daily       -
+
+    30261-manifest.txt                  -       -         -       daily       -
+
+    30261-Codebook.pdf                  -       -         -       2014-12-10  86b860670bd1265afe9dc0f37330c7b5
+
+    30261-User_guide.pdf                -       -         -       2014-12-10  9f9bb495272d00f7a291cdfc2981f6d5
+
+
+DS0001 Time-Constant Newspaper Characteristics
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0001-Data.dta                 -       7,774     10      2014-12-10  d1775b531fdf928478dd5c934dd83723
+
+    30261-0001-Data.rda                 -       7,774     10      2014-12-10  95228fe333e90c213c448e41b26264cd
+
+    30261-0001-Data.sav                 -       7,774     10      2014-12-10  c803f2a7a8c6f1752b32ca8854267af7
+
+    30261-0001-Data.stc                 -       7,774     10      2014-12-10  38d2714be179d4b89287bbd0416079e4
+
+    30261-0001-Data.tsv                 -       7,774     10      2014-12-10  5e8964709949693664fc92fed8f0b2fd
+
+    30261-0001-Data.txt                 83      7,774     10      2014-12-10  b62f64a8ed0518f81a1bf0b94bc86b21
+
+    30261-0001-Setup.dct                -       -         -       2014-12-10  5c3517abfbc5a6a96ea8ff2142db71d9
+
+    30261-0001-Setup.do                 -       -         -       2014-12-10  499004fedcee41e017d1cd039c5b4b9a
+
+    30261-0001-Setup.sas                -       -         -       2014-12-10  cb7bbffde93c29570af274a226fb2d32
+
+    30261-0001-Setup.sps                -       -         -       2014-12-10  a79220c6465901dec93254f53dd3dae7
+
+
+DS0002 Time-Varying Newspaper Characteristics
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0002-Data.dta                 -       58,870    24      2014-12-10  aebabcf5b219ef6914e942d15f66fffc
+
+    30261-0002-Data.rda                 -       58,870    24      2014-12-10  4b5f4993e17ac6a2289451f4282cad66
+
+    30261-0002-Data.sav                 -       58,870    24      2014-12-10  bf761303f4f50d71493535694185e298
+
+    30261-0002-Data.stc                 -       58,870    24      2014-12-10  48e0de0f5606994dfa570e57682c47d2
+
+    30261-0002-Data.tsv                 -       58,870    24      2014-12-10  2f62fa998758d5c705c799593c7a4103
+
+    30261-0002-Data.txt                 551     58,870    24      2014-12-10  7621205ae94c64989900caed08a88570
+
+    30261-0002-Setup.dct                -       -         -       2014-12-10  3f9e5fe635bfe7efea8464b1ee55c5a3
+
+    30261-0002-Setup.do                 -       -         -       2014-12-10  8252fa56b9296b740a62d424985ec659
+
+    30261-0002-Setup.sas                -       -         -       2014-12-10  149fa1f5cd255432c8f2f0dc9690fd40
+
+    30261-0002-Setup.sps                -       -         -       2014-12-10  de312de5f41ccc656b9b67d24c51a00c
+
+
+DS0003 Newspaper Events in Each Year: Entries, Exits, and Merges
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0003-Data.dta                 -       58,870    8       2014-12-10  209b0d5c754bf55e8e3777e9b7c01fd8
+
+    30261-0003-Data.rda                 -       58,870    8       2014-12-10  1ccaee19900cbc754050976639e06b31
+
+    30261-0003-Data.sav                 -       58,870    8       2014-12-10  186477886f6747f59772ba98a072bec2
+
+    30261-0003-Data.stc                 -       58,870    8       2014-12-10  b5be0cd34f5d27d87c63953b57d6b44c
+
+    30261-0003-Data.tsv                 -       58,870    8       2014-12-10  1ee9a25c5b715027a44567e55e50af90
+
+    30261-0003-Data.txt                 27      58,870    8       2014-12-10  d41110d2c4b61d5fa5d1b3427faaf710
+
+    30261-0003-Setup.dct                -       -         -       2014-12-10  7d54c15639f28686dac23c57aef90f98
+
+    30261-0003-Setup.do                 -       -         -       2014-12-10  9ea38ae227d9db477f454f4bde349f32
+
+    30261-0003-Setup.sas                -       -         -       2014-12-10  111470596ab33f97da7813d805def242
+
+    30261-0003-Setup.sps                -       -         -       2014-12-10  590e8a93f05d39976c6a657934825972
+
+
+DS0004 All Available Newspaper Subscription Prices in Each Year
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0004-Data.dta                 -       98,040    3       2014-12-10  7629e1181237f2b5d5eaf3f9e073c2a1
+
+    30261-0004-Data.rda                 -       98,040    3       2014-12-10  c71f82c93ad9e66ddd94686a8ebc5962
+
+    30261-0004-Data.sav                 -       98,040    3       2014-12-10  495d37ef8001c3e696a52e813e915ea2
+
+    30261-0004-Data.stc                 -       98,040    3       2014-12-10  bc1766554210147950df918d38fb270d
+
+    30261-0004-Data.tsv                 -       98,040    3       2014-12-10  8c70f57357f3c44c7529a26bb18527bb
+
+    30261-0004-Data.txt                 255     98,040    3       2014-12-10  015a35b472fadc8ce17121d69964d830
+
+    30261-0004-Setup.dct                -       -         -       2014-12-10  a41ea45b70f7ad0b8bf2bc24e27df019
+
+    30261-0004-Setup.do                 -       -         -       2014-12-10  bbf026d570c3d08cc9342ed92fec4112
+
+    30261-0004-Setup.sas                -       -         -       2014-12-10  a431592453a915a25667bca2573edbe5
+
+    30261-0004-Setup.sps                -       -         -       2014-12-10  52df8f87079b0e82931e96173d8e32be
+
+
+DS0005 All Available Newspaper Advertising Prices in Each Year
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0005-Data.dta                 -       89,815    5       2014-12-10  f15adf5c930977481dc5032c25802243
+
+    30261-0005-Data.rda                 -       89,815    5       2014-12-10  8aebbd31198da015e37e4c2798d591ba
+
+    30261-0005-Data.sav                 -       89,815    5       2014-12-10  924aacc31725381000a4829f3c31080d
+
+    30261-0005-Data.stc                 -       89,815    5       2014-12-10  f8f90ca672e2eeed45b2bc08f2bce111
+
+    30261-0005-Data.tsv                 -       89,815    5       2014-12-10  729efb02a1c9e04e8671aaab592a0758
+
+    30261-0005-Data.txt                 263     89,815    5       2014-12-10  ce3083c666f0090ab977f4e0377def69
+
+    30261-0005-Setup.dct                -       -         -       2014-12-10  7c677cca6e3ef200a14da3e3542078ed
+
+    30261-0005-Setup.do                 -       -         -       2014-12-10  95660b5986fc3a682f2936aa2ac47594
+
+    30261-0005-Setup.sas                -       -         -       2014-12-10  1ea0ba7cc9a3538aebe4c166b2cae288
+
+    30261-0005-Setup.sps                -       -         -       2014-12-10  0eef0b6d5f132a675b502023f3547e9d
+
+
+DS0006 Time-Constant City Characteristics: City Name, County, and State
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0006-Data.dta                 -       2,159     4       2014-12-10  7d844af8af2504bbe00013c654f7f489
+
+    30261-0006-Data.rda                 -       2,159     4       2014-12-10  8838d45c332ef24119eb955f7bee01d8
+
+    30261-0006-Data.sav                 -       2,159     4       2014-12-10  6e8c7d3799089338f78c3fe55c1919f0
+
+    30261-0006-Data.stc                 -       2,159     4       2014-12-10  7857cd56092df79285098a323228339b
+
+    30261-0006-Data.tsv                 -       2,159     4       2014-12-10  2e1d1165342ce16d3a2b970e05bcf658
+
+    30261-0006-Data.txt                 81      2,159     4       2014-12-10  4842fd4eed3cfc0f3148c339cc4b1a5d
+
+    30261-0006-Setup.dct                -       -         -       2014-12-10  2fd3c3f617729c8a6ced249d9708186d
+
+    30261-0006-Setup.do                 -       -         -       2014-12-10  a9247aecdee4c6e1d4e997e722332e14
+
+    30261-0006-Setup.sas                -       -         -       2014-12-10  f3c61662a271c3a5ba012c5617af84bc
+
+    30261-0006-Setup.sps                -       -         -       2014-12-10  12dfbc859d36080fb5adbd123a8f4373
+
+
+DS0007 Time-Varying City Characteristics
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0007-Data.dta                 -       40,684    21      2014-12-10  f9e27fb51b03d4910f0916ff05022207
+
+    30261-0007-Data.rda                 -       40,684    21      2014-12-10  107b214abbb693724984ef6c5c77c271
+
+    30261-0007-Data.sav                 -       40,684    21      2014-12-10  5233ec84eb288ad755f64f415cb5e89a
+
+    30261-0007-Data.stc                 -       40,684    21      2014-12-10  c62191ef642e263b44d1b879c3f120b4
+
+    30261-0007-Data.tsv                 -       40,684    21      2014-12-10  9eea2f71c752684a7226bd062d5c9d9c
+
+    30261-0007-Data.txt                 92      40,684    21      2014-12-10  12f5ce7c597df8d9bc5355f869cc28b5
+
+    30261-0007-Setup.dct                -       -         -       2014-12-10  d119cc1373b6a18572574a88d1ac1644
+
+    30261-0007-Setup.do                 -       -         -       2014-12-10  de4285a9221af97705a2b3165092e85b
+
+    30261-0007-Setup.sas                -       -         -       2014-12-10  7be5bb3e172748b5ab2b781cd247ea0a
+
+    30261-0007-Setup.sps                -       -         -       2014-12-10  316a473388b4f80877cd3ccb49b0b202
+
+
+DS0008 City Population by Census Year
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0008-Data.dta                 -       17,536    5       2014-12-10  f94949ce8dada6e40f2b87f12dc40e55
+
+    30261-0008-Data.rda                 -       17,536    5       2014-12-10  2a3a5c622cb7fb1d7622a60683ea2943
+
+    30261-0008-Data.sav                 -       17,536    5       2014-12-10  e07f963d0be8814bbe90d7247bafae70
+
+    30261-0008-Data.stc                 -       17,536    5       2014-12-10  3f0cb8ccff74520994401606fbcb3c13
+
+    30261-0008-Data.tsv                 -       17,536    5       2014-12-10  606ad35e8a8f8e07b61b0b8574f73ca1
+
+    30261-0008-Data.txt                 21      17,536    5       2014-12-10  559dbfbb2b125d1512a841d57fa3783a
+
+    30261-0008-Setup.dct                -       -         -       2014-12-10  210e87e38e2d0498446349f51f34ea6a
+
+    30261-0008-Setup.do                 -       -         -       2014-12-10  73265c457886cd8e2eb2415146b5f7f2
+
+    30261-0008-Setup.sas                -       -         -       2014-12-10  af2a54bf7f8861cd9dc09271348de5bb
+
+    30261-0008-Setup.sps                -       -         -       2014-12-10  5559601ad8a8a178048aaa38a6838d87
+
+
+DS0009 Time-Constant County Characteristics
+
+    Filename                            Record  Record    Var.    Date        MD5
+                                        Length  Count     Count   Updated     Checksum
+
+    30261-0009-Data.dta                 -       1,389     5       2014-12-10  1eb6fd66bad8c239b8c910a04916ca9a
+
+    30261-0009-Data.rda                 -       1,389     5       2014-12-10  7fba05a1691cd1fca2c3496c80ebcf5b
+
+    30261-0009-Data.sav                 -       1,389     5       2014-12-10  85a27ce4c79b30f6b05173379c8e61e2
+
+    30261-0009-Data.stc                 -       1,389     5       2014-12-10  b8d35c8eb649579b7b8aba7ecff7cf16
+
+    30261-0009-Data.tsv                 -       1,389     5       2014-12-10  a8d319a2fe23b5f091cdf335edf62892
+
+    30261-0009-Data.txt                 14      1,389     5       2014-12-10  b994f3eed18196d8b2e4539ec2444fb0
+
+    30261-0009-Setup.dct                -       -         -       2014-12-10  78a133de7e25c17a16aed54d4f2fd3e0
+
+    30261-0009-Setup.do                 -       -         -       2014-12-10  654a710dd3aba8781abf7fca32e20f93
+
+    30261-0009-Setup.sas                -       -         -       2014-12-10  502945b251b9bf6f7691652092c0f36f
+
+    30261-0009-Setup.sps                -       -         -       2014-12-10  f63a1dbb15a551b8b4e90b717bbfa311
+
+
+Version History
+
+2014-12-10 Previous releases of the collection contained a single dataset,
+however, this release contains nine datasets. Several variables were added
+to the collection and the title was changed at the request of the PI.
+2012-04-30 This collection has been updated by the principal investigator:
+the study title was changed from "Counts of US Daily Newspapers by City and
+Political Affiliation, 1869-2004" to "Number and Circulation of US Daily
+Newspapers by City and Political Affiliation, 1869-2004" and a number of
+variables have been added to the data set.  2011-07-28 Changed variable
+labels in data, per PI request.  2011-07-01 Changed variable labels in
+data, per PI request.  2011-06-14 Changed title, per PI request.
