@@ -1,4 +1,0 @@
-"0","library(tidyverse)"
-"0","library(ivreg)"
-"2","Error in library(ivreg) : there is no package called ‘ivreg’
-"

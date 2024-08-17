@@ -12,16 +12,16 @@ knitr::opts_chunk$set(echo = TRUE)
 Initialise libraries
 ```{r}
 library(tidyverse)
-library(ivreg)
+library("ivreg")
 ```
 
-Translating do-file stuff using https://www.matthieugomez.com/statar/manipulate-data.html and google/chatgpt
+Translating do-file "explore_newspaper_msa.do" using https://www.matthieugomez.com/statar/manipulate-data.html and google/chatgpt
 ```{r}
 #Read in first dataset, withdrawn
 folder <- "data"
-data1 <- read_csv(file.path(folder, "hwys2msa.csv")) %>%
+data1 <- read_csv(file.path(folder, "hwys2msa.csv")) %>% 
   filter(withdrawal == 1) %>%
-  select(msa = smsacode, length = length_msa_km, withdrawal)
+  select(msa = smsacode, length, withdrawal)
 
 #Read in second dataset, completed
 data2 <- read_csv(file.path(folder, "pr5112msa.csv")) %>%
@@ -29,48 +29,48 @@ data2 <- read_csv(file.path(folder, "pr5112msa.csv")) %>%
   select(msa = smsacode, length = length_in_km, starts_with("OPEN")) %>%
   mutate(withdrawal = 0)
 
-#append
-combined <- bind_rows(data1, data2)
+
+withdrawncombined <- bind_rows(data1, data2)
 
 #sort
-sorted <- arrange(combined, msa, withdrawal)
+withdrawncombined <- arrange(withdrawncombined, msa, withdrawal)
 
-sorted <- sorted %>%
+withdrawncombined <- withdrawncombined %>%
   group_by(msa) %>%
   mutate(has_withdraw = max(withdrawal)) %>%
   ungroup()
 
-collapsed_data <- sorted %>%
+withdrawncombined <- withdrawncombined %>%
   group_by(msa, withdrawal) %>%
   summarize(length = sum(length, na.rm = TRUE), .groups = 'drop')
 
 # Calculate total length for each msa
-collapsed_data <- collapsed_data %>%
+withdrawncombined <- withdrawncombined %>%
   group_by(msa) %>%
   mutate(total_length = sum(length, na.rm = TRUE)) %>%
   ungroup()
 
 # Generate frac_length and handle precision issues
-collapsed_data <- collapsed_data %>%
+withdrawncombined <- withdrawncombined %>%
   mutate(frac_length = length / total_length,
          frac_length = ifelse(frac_length > 0.9999, 1, frac_length))
 
 # Sort by msa and descending withdrawal
-sorted_data <- collapsed_data %>%
+withdrawncombined <- withdrawncombined %>%
   arrange(msa, desc(withdrawal))
 
 # Tagging the first occurrence of each msa
-tagged_data <- sorted_data %>%
+withdrawncombined <- withdrawncombined %>%
   group_by(msa) %>%
   filter(row_number() == 1) %>%
   ungroup()
 
 # Replace frac_length with 0 where withdrawal is 0
-tagged_data <- tagged_data %>%
+withdrawncombined <- withdrawncombined %>%
   mutate(frac_length = ifelse(withdrawal == 0, 0, frac_length))
 
 # Drop columns withdrawal, tag, and length
-msahwy <- tagged_data %>%
+msahwy <- withdrawncombined %>%
   select(-withdrawal, -length) %>%
   rename(frac_length_withdrawn = frac_length)
 
@@ -80,3 +80,55 @@ write_csv(msahwy, file.path(folder, "msahwy.csv"))
 # Display the final dataframe
 print(msahwy)
 ```
+The rest of the dofile deals with what we did in the fuzzy_match repo. So we can just read in that data:
+```{r}
+gentzkowcensus <- read_csv(file.path(folder, "MergedGentzkowCensus.csv"))
+#add circulation data
+gentzkow <- read.delim(file.path(folder, "30261-0007-Data.tsv")) %>% 
+  filter(year == 1960) %>% 
+  select(citypermid, numdailies, circ, circ_polaff_R, circ_polaff_I, circ_polaff_D, circ_polaff_none, circ_exlast, circ_exnext)
+gentzkowcensus <- left_join(gentzkowcensus, gentzkow, by = join_by(citypermid)) %>%
+  rename(msa = smsacode)
+#add population information
+population <- read_csv(file.path("data/nhgis0034_csv/nhgis0034_ds94_1970_place.csv")) %>%
+  select(GISJOIN, population = CBC001)
+```
+```{r}
+# merge with hwys2 and msahwy
+bygis <- join_by(GISJOIN)
+gentzkowcensushwy <- left_join(gentzkowcensus, population, bygis) %>% 
+  filter(!is.na(numdailies)) %>%
+  filter(population!=0)
+# Generate new variables for circulation per capita
+gentzkowcensushwy <- gentzkowcensushwy %>%
+  mutate(
+    circ_per_cap = gentzkowcensushwy$circ / population,
+    circ_per_cap_r = gentzkowcensushwy$circ_polaff_R / population,
+    circ_per_cap_d = gentzkowcensushwy$circ_polaff_D / population,
+    circ_per_cap_i = gentzkowcensushwy$circ_polaff_I / population,
+    circ_per_cap_none = gentzkowcensushwy$circ_polaff_none / population
+  )
+bymsa <- join_by(msa)
+gentzkowcensushwy <- inner_join(gentzkowcensushwy, msahwy) %>%
+  mutate(lpop = log(population)) %>%
+  filter(!is.na(circ_per_cap))
+```
+
+
+
+OLS Regressions:
+```{r}
+ols1 <- lm(frac_length_withdrawn ~ circ_per_cap, data = gentzkowcensushwy)
+summary(ols1)
+ols2 <- lm(frac_length_withdrawn ~ circ_per_cap + lpop, data = gentzkowcensushwy)
+summary(ols2)
+ols3 <-lm(frac_length_withdrawn ~ circ_per_cap_r, data = gentzkowcensushwy)
+summary(ols3)
+ols4 <- lm(frac_length_withdrawn ~ circ_per_cap + circ_per_cap_r + circ_per_cap_d + circ_per_cap_i + lpop, data = gentzkowcensushwy)
+summary(ols4)
+```
+Basic visualisations:
+```{r}
+ggplot(data = gentzkowcensushwy)
+```
+

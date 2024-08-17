@@ -1,0 +1,18 @@
+---
+title: "Untitled"
+author: "nwfried"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+data <- read_delim(file.path("data/30261-0005-Data.tsv"))
+head(data)
+# data <- data %>% filter(starts_with(recid))
+data2 <- read_delim(file.path("data/30261-0002-Data.tsv"))
+glimpse(data2)
+```
+
