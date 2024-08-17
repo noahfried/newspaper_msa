@@ -15,7 +15,7 @@ library(tidyverse)
 library("ivreg")
 ```
 
-Translating do-file "explore_newspaper_msa.do" using https://www.matthieugomez.com/statar/manipulate-data.html and google/chatgpt
+Translating do-file "explore_newspaper_msa.do" using https://www.matthieugomez.com/statar/manipulate-data.html and google/chatgpt to build dataset of withdrawn/completed highways.
 ```{r}
 #Read in first dataset, withdrawn
 folder <- "data"
@@ -93,6 +93,7 @@ gentzkowcensus <- left_join(gentzkowcensus, gentzkow, by = join_by(citypermid)) 
 population <- read_csv(file.path("data/nhgis0034_csv/nhgis0034_ds94_1970_place.csv")) %>%
   select(GISJOIN, population = CBC001)
 ```
+Add population information to this dataset and then merge in with highway data. Generate circulation per capita newspaper info.
 ```{r}
 # merge with hwys2 and msahwy
 bygis <- join_by(GISJOIN)
@@ -112,23 +113,22 @@ bymsa <- join_by(msa)
 gentzkowcensushwy <- inner_join(gentzkowcensushwy, msahwy) %>%
   mutate(lpop = log(population)) %>%
   filter(!is.na(circ_per_cap))
+#final dataframe will be named news_hwy for ease of reference
+news_hwy <- gentzkowcensushwy
 ```
 
 
 
-OLS Regressions:
+Now we can do some OLS Regressions:
 ```{r}
-ols1 <- lm(frac_length_withdrawn ~ circ_per_cap, data = gentzkowcensushwy)
+ols1 <- lm(frac_length_withdrawn ~ circ_per_cap, data = news_hwy)
 summary(ols1)
-ols2 <- lm(frac_length_withdrawn ~ circ_per_cap + lpop, data = gentzkowcensushwy)
+ols2 <- lm(frac_length_withdrawn ~ circ_per_cap + lpop, data = news_hwy)
 summary(ols2)
-ols3 <-lm(frac_length_withdrawn ~ circ_per_cap_r, data = gentzkowcensushwy)
+ols3 <-lm(frac_length_withdrawn ~ circ_per_cap_r, data = news_hwy)
 summary(ols3)
-ols4 <- lm(frac_length_withdrawn ~ circ_per_cap + circ_per_cap_r + circ_per_cap_d + circ_per_cap_i + lpop, data = gentzkowcensushwy)
+ols4 <- lm(frac_length_withdrawn ~ circ_per_cap + circ_per_cap_r + circ_per_cap_d + circ_per_cap_i + lpop, data = news_hwy)
 summary(ols4)
-```
-Basic visualisations:
-```{r}
-ggplot(data = gentzkowcensushwy)
+summary(lm(frac_length_withdrawn ~ circ_per_cap + circ_per_cap_r + circ_per_cap_d + circ_per_cap_i + lpop + numdailies, data = gentzkowcensushwy))
 ```
 
