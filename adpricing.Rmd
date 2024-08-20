@@ -1,0 +1,31 @@
+---
+title: "adpricing"
+author: "nwfried"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+Load in Gentzkow dataset and filter for newspapers from 1960.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(tidyverse)
+data <- read_delim(file.path("data/30261-0005-Data.tsv"))
+head(data)
+# data <- data %>% filter(starts_with(recid))
+ads <- read_delim(file.path("data/30261-0002-Data.tsv"))
+ads <- ads %>% filter(year == 1960)
+```
+Cleaning data for relevant information.
+```{r}
+ads <- ads %>% select(recid, permid, circ, adprice) %>%
+  filter(adprice != " ")
+```
+```{r}
+ads <- ads %>% mutate(circ = as.numeric(circ)) %>%
+  mutate(adprice = as.numeric(adprice))
+corr <- ads %>% summarise(correlation = cor(circ, adprice, use = "complete.obs")) %>%
+  pull(correlation)
+print(corr)
+```
+Correlation between circulation and adprice is 0.8218903 in 1960.
