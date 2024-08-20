@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 data <- read_delim(file.path("data/30261-0005-Data.tsv"))
 head(data)
-# data <- data %>% filter(starts_with(recid))
 ads <- read_delim(file.path("data/30261-0002-Data.tsv"))
 ads <- ads %>% filter(year == 1960)
 ```
