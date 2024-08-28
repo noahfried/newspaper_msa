@@ -14,11 +14,11 @@ data <- read_delim(file.path("data/30261-0005-Data.tsv"))
 head(data)
 ads <- read_delim(file.path("data/30261-0002-Data.tsv"))
 ads <- ads %>% filter(year == 1960)
+glimpse(ads)
 ```
 Cleaning data for relevant information.
 ```{r}
-ads <- ads %>% select(recid, permid, circ, adprice) %>%
-  filter(adprice != " ")
+ads <- ads %>% filter(adprice != " ")
 ```
 ```{r}
 ads <- ads %>% mutate(circ = as.numeric(circ)) %>%
@@ -28,3 +28,22 @@ corr <- ads %>% summarise(correlation = cor(circ, adprice, use = "complete.obs")
 print(corr)
 ```
 Correlation between circulation and adprice is 0.8218903 in 1960.
+
+Wrangle data to get an average ad price per city:
+
+Reading in location data and merging into dataframe;
+```{r}
+location <- read_delim(file.path("data/30261-0001-Data.tsv"))
+bypermid = join_by(permid)
+ads <- left_join(ads, location, by = bypermid)
+```
+Group by citypermid and calculate average adprice;
+```{r}
+ads <- ads %>% group_by(citypermid) %>%
+  summarise(adprice = mean(adprice))
+```
+Export to read into main file.
+```{r}
+write_csv(ads, "data/ads.csv")
+```
+

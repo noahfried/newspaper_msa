@@ -132,3 +132,34 @@ summary(ols4)
 summary(lm(frac_length_withdrawn ~ circ_per_cap + circ_per_cap_r + circ_per_cap_d + circ_per_cap_i + lpop + numdailies, data = gentzkowcensushwy))
 ```
 
+Create meausre of relative circulation to regress on this value:
+```{r}
+news_hwy <- news_hwy %>% group_by(msa) %>%
+  arrange(desc(population), .by_group = TRUE) %>%
+  mutate(rel_circ = circ_per_cap / first(circ_per_cap)) %>%
+  mutate(rel_circ_r = circ_per_cap_r / first(circ_per_cap_r)) %>%
+  mutate(rel_circ_d = circ_per_cap_d / first(circ_per_cap_d)) %>%
+  mutate(rel_circ_i = circ_per_cap_i / first(circ_per_cap_i)) %>%
+  ungroup()
+```
+
+Now we can run a few regressions using this relative circulation information:
+```{r}
+summary(lm(frac_length_withdrawn ~ rel_circ, data = news_hwy))
+summary(lm(frac_length_withdrawn ~ rel_circ + lpop, data = news_hwy))
+```
+
+Read in adpricing data for IV regression and m:1 merge with news_hwy dataframe.
+```{r}
+adpricing <- read_csv(file.path("data/ads.csv"))
+news_hwy <- left_join(news_hwy, adpricing, join_by(citypermid))
+```
+IV regress using adprice variable
+
+```{r}
+summary(ivreg(frac_length_withdrawn ~ rel_circ | adprice, data = news_hwy))
+```
+```{r}
+summary(ivreg(frac_length_withdrawn ~ rel_circ + lpop| adprice + lpop, data = news_hwy))
+```
+
