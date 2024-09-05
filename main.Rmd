@@ -132,7 +132,7 @@ summary(ols4)
 summary(lm(frac_length_withdrawn ~ circ_per_cap + circ_per_cap_r + circ_per_cap_d + circ_per_cap_i + lpop + numdailies, data = gentzkowcensushwy))
 ```
 
-Create meausre of relative circulation to regress on this value:
+Create meausre of place-level relative circulation to regress on this value:
 ```{r}
 news_hwy <- news_hwy %>% group_by(msa) %>%
   arrange(desc(population), .by_group = TRUE) %>%
@@ -161,5 +161,16 @@ summary(ivreg(frac_length_withdrawn ~ rel_circ | adprice, data = news_hwy))
 ```
 ```{r}
 summary(ivreg(frac_length_withdrawn ~ rel_circ + lpop| adprice + lpop, data = news_hwy))
+```
+Create dataframe for MSA-level data & regressions:
+```{r}
+news_hwy_msa <- news_hwy %>% group_by(msa) %>%
+  arrange(desc(population), .by_group = TRUE) %>%
+  summarise(total_circ_per_cap = sum(circ_per_cap, na.rm = TRUE), city_circ_per_cap = first(circ_per_cap), frac_length_withdrawn = frac_length_withdrawn) %>%
+  mutate(msa_rel_circ = city_circ_per_cap / total_circ_per_cap)
+```
+
+```{r}
+summary(lm(frac_length_withdrawn ~ msa_rel_circ, data = news_hwy_msa))
 ```
 
